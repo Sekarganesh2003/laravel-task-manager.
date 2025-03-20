@@ -24,11 +24,12 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Install dependencies and run Laravel setup
 RUN composer install --no-dev --optimize-autoloader \
+    && php artisan key:generate \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache \
-    && php artisan migrate --force \
-    && php artisan key:generate
+    && php artisan migrate --force
+
 
 
 CMD ["/start.sh"]
